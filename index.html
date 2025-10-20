@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Муж на час</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #2b6777;
+            --accent-color: #c8d8e4;
+            --text-color: #1b1b1b;
+            --bg-color: #f8f9fb;
+            --max-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            margin: 0 auto;
+            max-width: var(--max-width);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.9rem;
+        }
+
+        .contact-info a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: var(--primary-color);
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .language-switcher button {
+            border: none;
+            background: none;
+            font: inherit;
+            cursor: pointer;
+            color: var(--text-color);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .language-switcher button.active,
+        .language-switcher button:hover,
+        .language-switcher button:focus {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        main {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 1rem;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: #fff;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-button:hover,
+        .cta-button:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(43, 103, 119, 0.2);
+        }
+
+        .hero-images {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .hero-images img {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .services-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-item {
+            background-color: #fff;
+            padding: 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .faq-item {
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 1rem 1.25rem;
+            background: none;
+            border: none;
+            font: inherit;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.25rem;
+        }
+
+        .faq-answer.open {
+            padding-bottom: 1rem;
+        }
+
+        .faq-answer p {
+            margin: 0;
+            padding-bottom: 1rem;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        footer {
+            background-color: #fff;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .contact-info {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .header-content {
+                gap: 0.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .language-switcher {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo" data-i18n="logo">Муж на час</div>
+            <nav>
+                <ul>
+                    <li><a href="#about" data-i18n="menu.about">О компании</a></li>
+                    <li><a href="#services" data-i18n="menu.services">Услуги</a></li>
+                    <li><a href="#faq" data-i18n="menu.faq">Частые вопросы</a></li>
+                </ul>
+            </nav>
+            <div class="contact-info">
+                <span data-i18n="contact.phoneLabel">Телефон:</span>
+                <a href="tel:+380001112233" data-i18n="contact.phoneValue">+38 (000) 111-22-33</a>
+                <a href="https://t.me/handyman" target="_blank" rel="noopener" data-i18n="contact.telegram">Написать в Telegram</a>
+            </div>
+            <div class="language-switcher" aria-label="Language switcher">
+                <button type="button" data-lang="ru" class="active">RU</button>
+                <button type="button" data-lang="ua">UA</button>
+                <button type="button" data-lang="en">EN</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-text">
+                <h1 data-i18n="hero.title">Надежный помощник по дому — быстро, качественно, недорого!</h1>
+                <p data-i18n="hero.subtitle">Мы берем на себя все мелкие бытовые задачи, чтобы у вас оставалось время на действительно важные вещи.</p>
+                <a class="cta-button" href="tel:+380001112233" data-i18n="hero.cta">Заказать мастера</a>
+            </div>
+            <div class="hero-images">
+                <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=600&q=80" alt="Мастер устанавливает полку" />
+                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80" alt="Инструменты для ремонта" />
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 data-i18n="about.title">О компании</h2>
+            <p data-i18n="about.text1">Мы — команда профессионалов, которые помогают решать бытовые задачи любого уровня сложности. Наши мастера имеют многолетний опыт и готовы приехать в удобное для вас время.</p>
+            <p data-i18n="about.text2">Работаем быстро, аккуратно и честно. Мы ценим ваше время и гарантируем прозрачную стоимость услуг без скрытых платежей.</p>
+        </section>
+
+        <section id="services">
+            <h2 data-i18n="services.title">Услуги</h2>
+            <div class="services-list">
+                <div class="service-item" data-i18n="services.items.0">Починка розеток и выключателей</div>
+                <div class="service-item" data-i18n="services.items.1">Установка полок и карнизов</div>
+                <div class="service-item" data-i18n="services.items.2">Сборка и настройка мебели</div>
+                <div class="service-item" data-i18n="services.items.3">Мелкий сантехнический ремонт</div>
+                <div class="service-item" data-i18n="services.items.4">Замена замков и дверной фурнитуры</div>
+                <div class="service-item" data-i18n="services.items.5">Монтаж бытовой техники</div>
+                <div class="service-item" data-i18n="services.items.6">Мелкие работы по дому</div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2 data-i18n="faq.title">Частые вопросы</h2>
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span class="faq-text" data-i18n="faq.items.0.question">Как быстро вы приезжаете?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p data-i18n="faq.items.0.answer">Мастер может приехать уже в день обращения или на следующий день — договоримся о времени, которое удобно вам.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span class="faq-text" data-i18n="faq.items.1.question">Как формируется стоимость работ?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p data-i18n="faq.items.1.answer">Цена зависит от сложности и объема работ. Мы сообщаем стоимость заранее, без скрытых платежей.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span class="faq-text" data-i18n="faq.items.2.question">Вы предоставляете гарантии?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p data-i18n="faq.items.2.answer">Да, мы гарантируем качество выполненных работ и всегда готовы исправить недочеты.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span class="faq-text" data-i18n="faq.items.3.question">Можно ли вызвать мастера на выходных?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p data-i18n="faq.items.3.answer">Да, мы работаем без выходных. Сообщите удобное время — и мастер приедет.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p data-i18n="footer.copy">© 2024 Муж на час. Все права защищены.</p>
+        <p data-i18n="footer.call">Готовы помочь вам уже сегодня!</p>
+    </footer>
+
+    <script>
+        const translations = {
+            ru: {
+                logo: 'Муж на час',
+                menu: {
+                    about: 'О компании',
+                    services: 'Услуги',
+                    faq: 'Частые вопросы',
+                },
+                contact: {
+                    phoneLabel: 'Телефон:',
+                    phoneValue: '+38 (000) 111-22-33',
+                    telegram: 'Написать в Telegram',
+                },
+                hero: {
+                    title: 'Надежный помощник по дому — быстро, качественно, недорого!',
+                    subtitle: 'Мы берем на себя все мелкие бытовые задачи, чтобы у вас оставалось время на действительно важные вещи.',
+                    cta: 'Заказать мастера',
+                },
+                about: {
+                    title: 'О компании',
+                    text1: 'Мы — команда профессионалов, которые помогают решать бытовые задачи любого уровня сложности. Наши мастера имеют многолетний опыт и готовы приехать в удобное для вас время.',
+                    text2: 'Работаем быстро, аккуратно и честно. Мы ценим ваше время и гарантируем прозрачную стоимость услуг без скрытых платежей.',
+                },
+                services: {
+                    title: 'Услуги',
+                    items: [
+                        'Починка розеток и выключателей',
+                        'Установка полок и карнизов',
+                        'Сборка и настройка мебели',
+                        'Мелкий сантехнический ремонт',
+                        'Замена замков и дверной фурнитуры',
+                        'Монтаж бытовой техники',
+                        'Мелкие работы по дому',
+                    ],
+                },
+                faq: {
+                    title: 'Частые вопросы',
+                    items: [
+                        {
+                            question: 'Как быстро вы приезжаете?',
+                            answer: 'Мастер может приехать уже в день обращения или на следующий день — договоримся о времени, которое удобно вам.',
+                        },
+                        {
+                            question: 'Как формируется стоимость работ?',
+                            answer: 'Цена зависит от сложности и объема работ. Мы сообщаем стоимость заранее, без скрытых платежей.',
+                        },
+                        {
+                            question: 'Вы предоставляете гарантии?',
+                            answer: 'Да, мы гарантируем качество выполненных работ и всегда готовы исправить недочеты.',
+                        },
+                        {
+                            question: 'Можно ли вызвать мастера на выходных?',
+                            answer: 'Да, мы работаем без выходных. Сообщите удобное время — и мастер приедет.',
+                        },
+                    ],
+                },
+                footer: {
+                    copy: '© 2024 Муж на час. Все права защищены.',
+                    call: 'Готовы помочь вам уже сегодня!',
+                },
+            },
+            ua: {
+                logo: 'Чоловік на годину',
+                menu: {
+                    about: 'Про компанію',
+                    services: 'Послуги',
+                    faq: 'Поширені запитання',
+                },
+                contact: {
+                    phoneLabel: 'Телефон:',
+                    phoneValue: '+38 (000) 111-22-33',
+                    telegram: 'Написати в Telegram',
+                },
+                hero: {
+                    title: 'Надійний помічник по дому — швидко, якісно, недорого!',
+                    subtitle: 'Беремо на себе всі дрібні побутові завдання, щоб у вас залишався час на справді важливі речі.',
+                    cta: 'Замовити майстра',
+                },
+                about: {
+                    title: 'Про компанію',
+                    text1: 'Ми — команда професіоналів, яка допомагає вирішувати побутові завдання будь-якої складності. Наші майстри мають багаторічний досвід і готові приїхати у зручний для вас час.',
+                    text2: 'Працюємо швидко, акуратно і чесно. Цінуємо ваш час і гарантуємо прозору вартість послуг без прихованих платежів.',
+                },
+                services: {
+                    title: 'Послуги',
+                    items: [
+                        'Ремонт розеток і вимикачів',
+                        'Встановлення полиць та карнизів',
+                        'Збірка та налаштування меблів',
+                        'Дрібний сантехнічний ремонт',
+                        'Заміна замків і дверної фурнітури',
+                        'Монтаж побутової техніки',
+                        'Інші дрібні роботи по дому',
+                    ],
+                },
+                faq: {
+                    title: 'Поширені запитання',
+                    items: [
+                        {
+                            question: 'Як швидко ви приїжджаєте?',
+                            answer: 'Майстер може приїхати вже в день звернення або наступного дня — домовимось про час, який зручний вам.',
+                        },
+                        {
+                            question: 'Як формується вартість робіт?',
+                            answer: 'Ціна залежить від складності та обсягу робіт. Ми повідомляємо вартість заздалегідь, без прихованих платежів.',
+                        },
+                        {
+                            question: 'Чи надаєте ви гарантії?',
+                            answer: 'Так, ми гарантуємо якість виконаних робіт і завжди готові виправити недоліки.',
+                        },
+                        {
+                            question: 'Чи можна викликати майстра на вихідних?',
+                            answer: 'Так, ми працюємо без вихідних. Повідомте зручний час — і майстер приїде.',
+                        },
+                    ],
+                },
+                footer: {
+                    copy: '© 2024 Чоловік на годину. Усі права захищені.',
+                    call: 'Готові допомогти вам вже сьогодні!',
+                },
+            },
+            en: {
+                logo: 'Handyman',
+                menu: {
+                    about: 'About',
+                    services: 'Services',
+                    faq: 'FAQ',
+                },
+                contact: {
+                    phoneLabel: 'Phone:',
+                    phoneValue: '+38 (000) 111-22-33',
+                    telegram: 'Message on Telegram',
+                },
+                hero: {
+                    title: 'Your reliable home helper — fast, professional, affordable!',
+                    subtitle: 'We take care of every small household task so you can focus on what matters most.',
+                    cta: 'Book a handyman',
+                },
+                about: {
+                    title: 'About',
+                    text1: 'We are a team of skilled professionals ready to tackle household jobs of any complexity. Our specialists have years of experience and will arrive at a time that works for you.',
+                    text2: 'We work quickly, neatly, and transparently. We value your time and guarantee fair pricing with no hidden fees.',
+                },
+                services: {
+                    title: 'Services',
+                    items: [
+                        'Outlet and switch repairs',
+                        'Shelf and curtain rod installation',
+                        'Furniture assembly and setup',
+                        'Minor plumbing repairs',
+                        'Lock and door hardware replacement',
+                        'Appliance installation',
+                        'Other small household jobs',
+                    ],
+                },
+                faq: {
+                    title: 'Frequently Asked Questions',
+                    items: [
+                        {
+                            question: 'How quickly can you arrive?',
+                            answer: 'A handyman can come the same day you call or the next day — we will agree on a time that suits you.',
+                        },
+                        {
+                            question: 'How is the price calculated?',
+                            answer: 'Pricing depends on the complexity and scope of work. We always quote in advance with no hidden charges.',
+                        },
+                        {
+                            question: 'Do you provide a guarantee?',
+                            answer: 'Yes, we stand behind the quality of our work and will fix any issues promptly.',
+                        },
+                        {
+                            question: 'Can I schedule a visit on weekends?',
+                            answer: 'Of course, we work seven days a week. Tell us the time that suits you and we will be there.',
+                        },
+                    ],
+                },
+                footer: {
+                    copy: '© 2024 Handyman. All rights reserved.',
+                    call: 'Ready to help you today!',
+                },
+            },
+        };
+
+        const langButtons = document.querySelectorAll('.language-switcher button');
+
+        const setLanguage = (lang) => {
+            const translation = translations[lang];
+            if (!translation) return;
+
+            document.documentElement.lang = lang;
+
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach((el) => {
+                const keys = el.dataset.i18n.split('.');
+                let value = translation;
+                keys.forEach((key) => {
+                    if (value && key in value) {
+                        value = value[key];
+                    }
+                });
+
+                if (Array.isArray(value)) {
+                    value = value.join(', ');
+                }
+
+                if (typeof value === 'string') {
+                    if (el.tagName.toLowerCase() === 'a' && el.href.startsWith('tel:')) {
+                        el.textContent = value;
+                    } else {
+                        el.textContent = value;
+                    }
+                }
+            });
+
+        };
+
+        langButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                langButtons.forEach((btn) => btn.classList.toggle('active', btn === button));
+                setLanguage(button.dataset.lang);
+            });
+        });
+
+        // FAQ accordion functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach((item) => {
+            const questionButton = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            questionButton.addEventListener('click', () => {
+                const isOpen = item.classList.toggle('open');
+                answer.classList.toggle('open', isOpen);
+                answer.style.maxHeight = isOpen ? answer.scrollHeight + 'px' : null;
+            });
+        });
+
+        // Initialize default language
+        setLanguage('ru');
+    </script>
+</body>
+</html>
